@@ -28,12 +28,12 @@
             
             /* Status Colors */
             --danger: #FF8A80;
-            --success-bubble: #00FDCF; /* Bright Cyan */
-            --warning-bubble: #EEEEEE; 
+            --success-bubble: #00FDCF; /* New Success Color */
+            --warning-bubble: #EEEEEE; /* New Warning Color */
             
             --line-weight: 1.5px;
             --radius-btn: 99px;
-            --radius-card: 100px;
+            --radius-card: 100px; /* Global Radius */
         }
 
         body {
@@ -55,7 +55,7 @@
             aspect-ratio: 16/9;
             max-height: 85vh;
             background: var(--card-bg);
-            border-radius: var(--radius-card);
+            border-radius: var(--radius-card); /* 100px */
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
             padding: 50px; 
             box-sizing: border-box;
@@ -72,7 +72,7 @@
         .container.camera-mode {
             padding: 0;
             background: #000;
-            border-radius: var(--radius-card);
+            border-radius: var(--radius-card); /* Ensure 100px radius in camera mode */
         }
 
         /* Typography */
@@ -222,26 +222,29 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         
+        /* Updated: Smaller Instruction Text */
         .instruction-banner h2 { 
-            margin: 0; font-size: 2rem; 
+            margin: 0; font-size: 2rem; /* Reduced from 2.5rem */
             font-weight: 600; 
             color: #fff; text-align: left;
             line-height: 1.1;
         }
         .instruction-banner p { 
-            margin: 8px 0 0 0; font-size: 1rem; 
+            margin: 8px 0 0 0; font-size: 1rem; /* Reduced from 1.2rem */
             color: rgba(255,255,255,0.9); text-align: left; 
             font-weight: 300; 
         }
 
-        /* Warning Pill */
+        /* Warning Pill (The text pill, not the level bubble) */
         .status-pill {
             position: absolute; left: 50%; transform: translate(-50%, 0); 
             background: var(--card-bg); 
             color: var(--ink); 
+            /* Removed Border */
             border: none;
             padding: 12px 30px;
             border-radius: 50px; font-size: 1rem; opacity: 0; transition: opacity 0.3s; 
+            /* Updated Font Weight */
             font-weight: 300; 
             box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
             z-index: 60;
@@ -260,9 +263,10 @@
         }
         .level-inner-ring { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.6); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         
+        /* Updated Level Bubble Colors */
         .level-bubble { 
             width: 20px; height: 20px; 
-            background-color: var(--warning-bubble); 
+            background-color: var(--warning-bubble); /* #EEEEEE */
             border-radius: 50%; 
             position: absolute; top: 50%; left: 50%; 
             transform: translate(-50%, -50%); 
@@ -275,9 +279,8 @@
             border-color: var(--success-bubble); 
             background: rgba(0, 253, 207, 0.1); 
         }
-        /* UPDATED: Solid color for balanced bubble */
         .level-gauge.balanced .level-bubble { 
-            background-color: #00FDCF !important;
+            background-color: var(--success-bubble); /* #00FDCF */
             box-shadow: 0 0 15px rgba(0, 253, 207, 0.6); 
         }
 
@@ -667,11 +670,11 @@
 
             isHeadPostureValid = isFaceAligned;
             
-            // Draw Iris Dots (Bright Cyan)
+            // Draw Iris Dots
             const lIris = results.faceLandmarks[468];
             const rIris = results.faceLandmarks[473];
-            drawDot(canvasCtx, lIris.x*w, lIris.y*h, "#00FDCF");
-            drawDot(canvasCtx, rIris.x*w, rIris.y*h, "#00FDCF");
+            drawDot(canvasCtx, lIris.x*w, lIris.y*h, "#10b981");
+            drawDot(canvasCtx, rIris.x*w, rIris.y*h, "#10b981");
 
             updateInstructions(currentPhase);
             ui.warning.innerText = warning;
@@ -695,11 +698,11 @@
                 if (results.leftHandLandmarks && results.rightHandLandmarks && isFaceAligned) {
                     
                     if (mode === 'breadth') {
-                        // Just dots on index fingers (Purple)
+                        // Just dots on index fingers
                         const l = results.leftHandLandmarks[8];
                         const r = results.rightHandLandmarks[8];
-                        drawDot(canvasCtx, l.x*w, l.y*h, "#814efa");
-                        drawDot(canvasCtx, r.x*w, r.y*h, "#814efa");
+                        drawDot(canvasCtx, l.x*w, l.y*h, "#ef4444");
+                        drawDot(canvasCtx, r.x*w, r.y*h, "#ef4444");
                     } else {
                         // Height Mode: Detect Top Hand vs Side Hand
                         const lY = results.leftHandLandmarks[0].y;
@@ -714,13 +717,13 @@
                             sideHand = results.leftHandLandmarks; // Left is Side
                         }
                         
-                        // Draw Middle Finger (12) on Top Hand (Purple)
+                        // Draw Middle Finger (12) on Top Hand
                         const t = topHand[12]; 
-                        drawDot(canvasCtx, t.x*w, t.y*h, "#814efa");
+                        drawDot(canvasCtx, t.x*w, t.y*h, "#ef4444");
                         
-                        // Draw Index Finger (8) on Side Hand (Purple)
+                        // Draw Index Finger (8) on Side Hand
                         const s = sideHand[8];
-                        drawDot(canvasCtx, s.x*w, s.y*h, "#814efa");
+                        drawDot(canvasCtx, s.x*w, s.y*h, "#ef4444");
                     }
                     
                     alignmentStableFrames++;
