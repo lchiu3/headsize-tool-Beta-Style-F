@@ -736,9 +736,13 @@
                             sideHand = results.leftHandLandmarks; // Left is Side
                         }
                         
-                        // Draw Middle Finger (12) on Top Hand
-                        const t = topHand[12]; 
-                        drawDot(canvasCtx, t.x*w, t.y*h, "#814efa");
+                        // --- [UPDATED] VISUALIZE 3 FINGERS ON TOP HAND ---
+                        const t12 = topHand[12]; // Middle
+                        const t16 = topHand[16]; // Ring
+                        const t20 = topHand[20]; // Pinky
+                        drawDot(canvasCtx, t12.x*w, t12.y*h, "#814efa");
+                        drawDot(canvasCtx, t16.x*w, t16.y*h, "#814efa");
+                        drawDot(canvasCtx, t20.x*w, t20.y*h, "#814efa");
                         
                         // Draw Index Finger (8) on Side Hand
                         const s = sideHand[8];
@@ -776,28 +780,32 @@
                         );
                         resultMM = distPx * mmPerPixel;
                     } else {
-                        // HEIGHT LOGIC (Updated for Middle Finger)
+                        // HEIGHT LOGIC 
                         const lY = results.leftHandLandmarks[0].y;
                         const rY = results.rightHandLandmarks[0].y;
 
-                        let topPoint, sidePoint;
+                        let topHand, sidePoint;
 
                         // Identify Top vs Side Hand based on Wrist Height
                         if (lY < rY) {
-                            // Left is Top -> Middle Finger (12)
-                            topPoint = results.leftHandLandmarks[12];
-                            // Right is Side -> Index Finger (8)
+                            topHand = results.leftHandLandmarks;
                             sidePoint = results.rightHandLandmarks[8];
                         } else {
-                            // Right is Top -> Middle Finger (12)
-                            topPoint = results.rightHandLandmarks[12];
-                            // Left is Side -> Index Finger (8)
+                            topHand = results.rightHandLandmarks;
                             sidePoint = results.leftHandLandmarks[8];
                         }
 
-                        const topY = topPoint.y * h;
-                        const sideY = sidePoint.y * h;
-                        resultMM = Math.abs(sideY - topY) * mmPerPixel;
+                        // --- [UPDATED] AVERAGE OF 3 FINGERS (Middle, Ring, Pinky) ---
+                        // To account for overlapping/blocked fingers
+                        const y12 = topHand[12].y;
+                        const y16 = topHand[16].y;
+                        const y20 = topHand[20].y;
+                        const avgTopY = (y12 + y16 + y20) / 3;
+
+                        const topYPx = avgTopY * h;
+                        const sideYPx = sidePoint.y * h;
+                        
+                        resultMM = Math.abs(sideYPx - topYPx) * mmPerPixel;
                     }
 
                     measurementBuffer.push(resultMM);
