@@ -154,54 +154,17 @@
         }
         .ipd-input-group input:focus { outline: none; background: #fafafa; border-color: var(--btn-bg); }
 
-        /* Graphics */
-        .instruction-graphic {
-            width: 200px; height: 200px; 
-            border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-            background: #FFF9C4; 
-            border: var(--line-weight) solid var(--ink);
-            margin: 20px auto 40px auto; 
-            position: relative; 
-            display: flex; justify-content: center; align-items: center;
+        /* Updated Graphics Style for Images */
+        .instruction-image {
+            width: 100%;
+            max-width: 450px; /* Adjust size of image here */
+            height: auto;
+            margin: 0 auto 30px auto;
+            display: block;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
         
-        .head-shape { 
-            width: 90px; height: 120px; 
-            border: var(--line-weight) solid var(--ink); 
-            border-radius: 40px; 
-            background: #fff; 
-            position: relative;
-            z-index: 2;
-        }
-        
-        .finger-dot { 
-            width: 24px; height: 24px; 
-            background: var(--accent-yellow); 
-            border: var(--line-weight) solid var(--ink);
-            border-radius: 50%; 
-            position: absolute; 
-            z-index: 5;
-        }
-        
-        .g-breadth .left-finger { top: 50%; left: -30px; transform: translateY(-50%); }
-        .g-breadth .right-finger { top: 50%; right: -30px; transform: translateY(-50%); }
-        .g-breadth .arrow-line { position: absolute; top: 50%; left: -25px; right: -25px; height: 1px; background: var(--ink); z-index: 1; }
-        
-        .g-height .side-finger { top: 50%; right: -30px; transform: translateY(-50%); }
-        .g-height .top-palm { 
-            top: -20px; left: 50%; transform: translateX(-50%);
-            width: 70px; height: 14px; 
-            background: var(--accent-yellow); 
-            border: var(--line-weight) solid var(--ink);
-            border-radius: 10px; 
-            position: absolute; 
-            z-index: 5;
-        }
-        .g-height .arrow-line-vert { 
-            position: absolute; top: -20px; bottom: 50%; right: -25px; width: 0; 
-            border-right: 1px dashed var(--ink); z-index: 1; 
-        }
-
         /* Camera View */
         .camera-container {
             position: relative; width: 100%; height: 100%; 
@@ -371,12 +334,9 @@
 
     <div id="step-instr-breadth" class="step">
         <h1>Part 1: Head Breadth</h1>
-        <div class="instruction-graphic g-breadth">
-            <div class="head-shape"></div>
-            <div class="finger-dot left-finger"></div>
-            <div class="finger-dot right-finger"></div>
-            <div class="arrow-line"></div>
-        </div>
+        
+        <img src="headbreadth_tutorial_01.png" alt="Head Breadth Instructions" class="instruction-image">
+        
         <p>1. Use the <b>Bubble Level</b> to balance your head.<br>
            2. Place your <b>Index Fingers</b> on both <b>Tragus</b> (ear bumps).<br>
            3. Look straight at the camera (not screen).</p>
@@ -385,12 +345,9 @@
 
     <div id="step-instr-height" class="step">
         <h1>Part 2: Head Height</h1>
-        <div class="instruction-graphic g-height">
-            <div class="head-shape"></div>
-            <div class="finger-dot side-finger"></div>
-            <div class="top-palm"></div>
-            <div class="arrow-line-vert"></div>
-        </div>
+        
+        <img src="headheight_tutorial_01.png" alt="Head Height Instructions" class="instruction-image">
+        
         <p>1. Use the <b>Bubble Level</b> to balance your head.<br>
            2. Place one of your <b>Index fingers</b> on either <b>tragus</b> (ear bumps).<br>
            3. Press your <b>Flat Palm</b> firmly on the <b>Top of your Head</b> with the other hand.<br>
