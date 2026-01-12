@@ -480,6 +480,7 @@
     let isHeadPostureValid = false;
     let countdownTimer = null; 
 
+    // REDUCED FRAME BUFFER TO 5 FOR SPEED
     const ALIGN_FRAMES_NEEDED = 20;
     const MEASURE_FRAMES = 5; 
     let currentGhostW = 300;
@@ -528,14 +529,14 @@
     function idMap(id) {
         if(id.includes('welcome')) return 'welcome';
         if(id.includes('calib')) return 'calib';
-        if(id.includes('width')) return 'instrWidth';
+        if(id.includes('width')) return 'instrWidth'; 
         if(id.includes('height')) return 'instrHeight';
         if(id.includes('camera')) return 'camera';
     }
 
     function setIPD(val, type) {
         userIPD = parseFloat(val);
-        nextStep('step-instr-width');
+        nextStep('step-instr-width'); 
     }
 
     function startMeasurement(selectedMode) {
@@ -567,7 +568,7 @@
     function updateInstructions(phase) {
         if (phase === 0) {
             ui.title.innerText = "Align Nose";
-            ui.desc.innerText = "Center your nose & Balance Head";
+            ui.desc.innerText = "Center your nose & Bubble Level";
         } else if (phase === 1) {
             if (mode === 'width') {
                 ui.title.innerText = "Hands Position";
@@ -656,8 +657,9 @@
             // Visualization Sensitivity
             const sensitivity = 1000; 
             const bubbleX = Math.max(-50, Math.min(50, yawRaw * sensitivity));
-            // Invert pitch for bubble logic (Up=Down)
-            const bubbleY = Math.max(-50, Math.min(50, pitchDelta * sensitivity * -1));
+            
+            // --- FIX: REMOVED THE * -1 so bubble moves with head ---
+            const bubbleY = Math.max(-50, Math.min(50, pitchDelta * sensitivity));
             
             ui.levelBubble.style.transform = `translate(calc(-50% + ${-bubbleX}px), calc(-50% + ${bubbleY}px))`;
             const isBalanced = Math.sqrt(bubbleX*bubbleX + bubbleY*bubbleY) < 15;
@@ -676,9 +678,9 @@
                 if (Math.abs(yawRaw) > 0.04) warning = "Look Straight";
                 
                 // --- [UPDATED] DIRECTIONAL FEEDBACK ---
-                // If pitchDelta is Negative: Eyes are Higher than Ears (Looking UP) -> Tell user to Look Down
-                // If pitchDelta is Positive: Eyes are Lower than Ears (Looking DOWN) -> Tell user to Look Up
+                // pitchDelta < 0 means Eyes above Ears (Looking UP)
                 else if (pitchDelta < -0.03) warning = "Look Down"; 
+                // pitchDelta > 0 means Eyes below Ears (Looking DOWN)
                 else if (pitchDelta > 0.03) warning = "Look Up";
                 else warning = "Balance Bubble";
             } else {
