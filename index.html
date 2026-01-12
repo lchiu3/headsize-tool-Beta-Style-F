@@ -469,8 +469,8 @@
     // --- State ---
     let userIPD = 63; 
     let isScanning = false;
-    let mode = 'width'; // Changed from 'breadth'
-    let widthVal = 0;   // Changed from 'breadthVal'
+    let mode = 'width'; 
+    let widthVal = 0;   
     let heightVal = 0;
 
     let currentPhase = 0; 
@@ -480,7 +480,6 @@
     let isHeadPostureValid = false;
     let countdownTimer = null; 
 
-    // REDUCED FRAME BUFFER TO 5 FOR SPEED
     const ALIGN_FRAMES_NEEDED = 20;
     const MEASURE_FRAMES = 5; 
     let currentGhostW = 300;
@@ -529,14 +528,14 @@
     function idMap(id) {
         if(id.includes('welcome')) return 'welcome';
         if(id.includes('calib')) return 'calib';
-        if(id.includes('width')) return 'instrWidth'; // Updated
+        if(id.includes('width')) return 'instrWidth';
         if(id.includes('height')) return 'instrHeight';
         if(id.includes('camera')) return 'camera';
     }
 
     function setIPD(val, type) {
         userIPD = parseFloat(val);
-        nextStep('step-instr-width'); // Updated
+        nextStep('step-instr-width');
     }
 
     function startMeasurement(selectedMode) {
@@ -568,7 +567,7 @@
     function updateInstructions(phase) {
         if (phase === 0) {
             ui.title.innerText = "Align Nose";
-            ui.desc.innerText = "Center your nose & Bubble Level";
+            ui.desc.innerText = "Center your nose & Balance Head";
         } else if (phase === 1) {
             if (mode === 'width') {
                 ui.title.innerText = "Hands Position";
@@ -622,6 +621,13 @@
             const eyeMidX = (leftEye.x + rightEye.x) / 2;
             const eyeMidY = (leftEye.y + rightEye.y) / 2;
 
+            // --- [UPDATED] EAR LANDMARKS ---
+            // Using landmarks 127 and 356 (Tragus/Cheekbone area) 
+            // This is more stable for "Head Pitch" than using the nose
+            const leftEar = results.faceLandmarks[127];
+            const rightEar = results.faceLandmarks[356];
+            const earMidY = (leftEar.y + rightEar.y) / 2;
+
             // Ghost Sizing
             const top = results.faceLandmarks[10].y;
             const bottom = results.faceLandmarks[152].y;
@@ -636,22 +642,29 @@
             // Position Warning Pill dynamically
             ui.warning.style.top = `calc(50% + ${currentGhostH / 2 + 30}px)`;
 
-            // --- LEVEL GAUGE ---
+            // --- [UPDATED] LEVEL GAUGE LOGIC ---
+            // 1. YAW: Nose X vs Eye Center X
             const yawRaw = (nose.x - eyeMidX); 
-            const pitchRaw = (nose.y - eyeMidY); 
-            const targetPitch = 0.055; 
+
+            // 2. PITCH: Eye Y vs Ear Y (Frankfurt Plane Approximation)
+            const pitchRaw = (eyeMidY - earMidY); 
+            
+            // Target: 0.0 (Level) or -0.01 (Webcam slightly above eyes)
+            const targetPitch = -0.01; 
             const pitchDelta = pitchRaw - targetPitch; 
 
-            const sensitivity = 800; 
+            // Visualization Sensitivity
+            const sensitivity = 1000; 
             const bubbleX = Math.max(-50, Math.min(50, yawRaw * sensitivity));
-            const bubbleY = Math.max(-50, Math.min(50, pitchDelta * sensitivity));
+            // Invert pitch for bubble logic (Up=Down)
+            const bubbleY = Math.max(-50, Math.min(50, pitchDelta * sensitivity * -1));
             
             ui.levelBubble.style.transform = `translate(calc(-50% + ${-bubbleX}px), calc(-50% + ${bubbleY}px))`;
             const isBalanced = Math.sqrt(bubbleX*bubbleX + bubbleY*bubbleY) < 15;
 
             if (isBalanced) {
                 ui.levelGauge.classList.add('balanced');
-                ui.levelBubble.style.backgroundColor = '#00FDCF'; // Fixed Solid Cyan
+                ui.levelBubble.style.backgroundColor = '#00FDCF'; 
             } else {
                 ui.levelGauge.classList.remove('balanced');
                 ui.levelBubble.style.backgroundColor = 'var(--warning-bubble)';
@@ -660,9 +673,13 @@
             const offsetX = Math.abs(nose.x - 0.5);
             if (offsetX > 0.1) warning = "Center Face";
             else if (!isBalanced) {
-                if (Math.abs(yawRaw) > 0.05) warning = "Look Straight";
-                else if (pitchDelta < -0.02) warning = "Lower Chin";
-                else if (pitchDelta > 0.03) warning = "Lift Chin";
+                if (Math.abs(yawRaw) > 0.04) warning = "Look Straight";
+                
+                // --- [UPDATED] DIRECTIONAL FEEDBACK ---
+                // If pitchDelta is Negative: Eyes are Higher than Ears (Looking UP) -> Tell user to Look Down
+                // If pitchDelta is Positive: Eyes are Lower than Ears (Looking DOWN) -> Tell user to Look Up
+                else if (pitchDelta < -0.03) warning = "Look Down"; 
+                else if (pitchDelta > 0.03) warning = "Look Up";
                 else warning = "Balance Bubble";
             } else {
                 isFaceAligned = true;
@@ -863,7 +880,6 @@
         });
         camera.start().then(() => { ui.loader.style.display = 'none'; isScanning = true; });
     }
-
 </script>
 
 </body>
