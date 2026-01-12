@@ -333,9 +333,9 @@
 
     const ALIGN_FRAMES_NEEDED = 20;
     
-    // --- ACCURACY FIX 1: INCREASE SAMPLE SIZE ---
-    // Increased from 5 to 60 (Approx 2 seconds of data)
-    const MEASURE_FRAMES = 60; 
+    // --- PERFORMANCE FIX: LOWER FRAMES TO 30 ---
+    // 30 frames is a good balance between speed and median-filter accuracy
+    const MEASURE_FRAMES = 30; 
     
     let currentGhostW = 300;
     let currentGhostH = 450;
@@ -446,7 +446,6 @@
     function lerp(start, end, t) { return start * (1 - t) + end * t; }
     function drawDot(ctx, x, y, color) { ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, 8, 0, 2 * Math.PI); ctx.fill(); }
 
-    // --- ACCURACY FIX 2: MEDIAN FILTER ---
     function getMedian(values) {
         if (values.length === 0) return 0;
         const sorted = [...values].sort((a, b) => a - b);
@@ -606,7 +605,6 @@
                         {x:rIris.x*w, y:rIris.y*h}
                     );
 
-                    // --- ACCURACY FIX 3: DISTANCE CONSTRAINT ---
                     if (irisDistPx < 60) {
                         ui.warning.innerText = "Move Closer";
                         ui.warning.className = "status-pill visible";
@@ -646,6 +644,12 @@
                         }
 
                         measurementBuffer.push(resultMM);
+                        
+                        // --- VISUAL PROGRESS INDICATOR ---
+                        // This prevents the "Frozen" feeling
+                        const progress = Math.round((measurementBuffer.length / MEASURE_FRAMES) * 100);
+                        ui.countdown.innerText = `Measuring... ${progress}%`;
+                        
                         if (measurementBuffer.length >= MEASURE_FRAMES) finishMeasurementSection();
                     }
                 }
@@ -680,7 +684,7 @@
                 clearInterval(countdownTimer);
                 ui.countdown.style.display = 'none';
                 ui.countdown.style.display = 'block';
-                ui.countdown.innerText = "Analyzing...";
+                ui.countdown.innerText = "Measuring... 0%";
                 ui.countdown.style.fontSize = "2rem"; 
                 currentPhase = 3; 
             }
@@ -690,7 +694,6 @@
     function finishMeasurementSection() {
         isScanning = false;
         
-        // --- ACCURACY FIX: USE MEDIAN INSTEAD OF AVERAGE ---
         const result = getMedian(measurementBuffer);
         const rounded = Math.round(result);
 
