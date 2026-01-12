@@ -57,10 +57,7 @@
             background: var(--card-bg);
             border-radius: var(--radius-card); 
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
-            
-            /* Padding: 70px Top/Bottom */
             padding: 70px 50px; 
-            
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -159,192 +156,50 @@
         .ipd-input-group input:focus { outline: none; background: #fafafa; border-color: var(--btn-bg); }
 
         /* --- TUTORIAL STYLES --- */
-        
-        .tutorial-step {
-            position: relative;
-            justify-content: center; 
-        }
-
-        .tutorial-step h1 {
-            position: relative;
-            z-index: 2;
-            margin-bottom: 0;
-            margin-top: 20px; 
-        }
-
-        .tutorial-step p {
-            position: relative;
-            z-index: 2;
-            background: transparent;
-            box-shadow: none;
-            border: none;
-            padding: 0;
-            text-shadow: none;
-            font-weight: 200; 
-            margin-bottom: 30px;
-        }
-
-        .tutorial-step .btn {
-            margin-bottom: 20px;
-        }
-
-        .instruction-image {
-            width: 110%; 
-            max-width: 650px; 
-            height: auto;
-            display: block;
-            margin: -50px auto -60px auto; 
-            box-shadow: none;
-            border-radius: 0;
-            border: none;
-            position: relative;
-            z-index: 0; 
-            opacity: 0.9; 
-            pointer-events: none; 
-        }
-
-        .calib-graphic {
-            width: 120px;
-            height: auto;
-            display: block;
-            margin: 0 auto 20px auto; 
-        }
+        .tutorial-step { position: relative; justify-content: center; }
+        .tutorial-step h1 { position: relative; z-index: 2; margin-bottom: 0; margin-top: 20px; }
+        .tutorial-step p { position: relative; z-index: 2; background: transparent; box-shadow: none; border: none; padding: 0; text-shadow: none; font-weight: 200; margin-bottom: 30px; }
+        .tutorial-step .btn { margin-bottom: 20px; }
+        .instruction-image { width: 110%; max-width: 650px; height: auto; display: block; margin: -50px auto -60px auto; box-shadow: none; border-radius: 0; border: none; position: relative; z-index: 0; opacity: 0.9; pointer-events: none; }
+        .calib-graphic { width: 120px; height: auto; display: block; margin: 0 auto 20px auto; }
         
         /* Camera View */
-        .camera-container {
-            position: relative; width: 100%; height: 100%; 
-            overflow: hidden; background: #111;
-        }
+        .camera-container { position: relative; width: 100%; height: 100%; overflow: hidden; background: #111; }
         video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); opacity: 0.9; }
         canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: scaleX(-1); }
         
-        /* LEFT SIDE PANEL (Instructions) */
-        .ui-left-panel {
-            position: absolute; top: 50%; left: 50px; transform: translateY(-50%);
-            width: 350px; display: flex; flex-direction: column; align-items: flex-start;
-            gap: 10px; z-index: 50; pointer-events: none;
-        }
+        .ui-left-panel { position: absolute; top: 50%; left: 50px; transform: translateY(-50%); width: 350px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; z-index: 50; pointer-events: none; }
+        .instruction-banner { padding: 0; text-align: left; transition: all 0.3s; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .instruction-banner h2 { margin: 0; font-size: 2rem; font-weight: 600; color: #fff; text-align: left; line-height: 1.1; }
+        .instruction-banner p { margin: 8px 0 0 0; font-size: 1rem; color: rgba(255,255,255,0.9); text-align: left; font-weight: 300; }
 
-        .instruction-banner {
-            padding: 0; text-align: left; transition: all 0.3s;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-        
-        .instruction-banner h2 { 
-            margin: 0; font-size: 2rem; 
-            font-weight: 600; 
-            color: #fff; text-align: left;
-            line-height: 1.1;
-        }
-        .instruction-banner p { 
-            margin: 8px 0 0 0; font-size: 1rem; 
-            color: rgba(255,255,255,0.9); text-align: left; 
-            font-weight: 300; 
-        }
-
-        /* Warning Pill */
-        .status-pill {
-            position: absolute; left: 50%; transform: translate(-50%, 0); 
-            background: var(--card-bg); 
-            color: var(--ink); 
-            border: none;
-            padding: 12px 30px;
-            border-radius: 50px; font-size: 1rem; opacity: 0; transition: opacity 0.3s; 
-            font-weight: 300; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
-            z-index: 60;
-        }
+        .status-pill { position: absolute; left: 50%; transform: translate(-50%, 0); background: var(--card-bg); color: var(--ink); border: none; padding: 12px 30px; border-radius: 50px; font-size: 1rem; opacity: 0; transition: opacity 0.3s; font-weight: 300; box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 60; }
         .status-pill.visible { opacity: 1; }
 
-        /* Level Gauge */
-        .level-gauge {
-            position: absolute; top: 50%; right: 50px; transform: translateY(-50%);
-            width: 120px; height: 120px; 
-            background: rgba(255,255,255,0.1); 
-            border-radius: 50%; 
-            border: 2px solid rgba(255,255,255,0.4); 
-            display: flex; justify-content: center; align-items: center; 
-            backdrop-filter: blur(8px); z-index: 50; 
-        }
+        .level-gauge { position: absolute; top: 50%; right: 50px; transform: translateY(-50%); width: 120px; height: 120px; background: rgba(255,255,255,0.1); border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px); z-index: 50; }
         .level-inner-ring { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.6); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-        
-        .level-bubble { 
-            width: 20px; height: 20px; 
-            background-color: var(--warning-bubble); 
-            border-radius: 50%; 
-            position: absolute; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); 
-            transition: all 0.1s linear; 
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); 
-        }
+        .level-bubble { width: 20px; height: 20px; background-color: var(--warning-bubble); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: all 0.1s linear; box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
         .level-label { position: absolute; bottom: -40px; width: 100%; text-align: center; color: white; font-size: 0.8rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
-        
-        .level-gauge.balanced { 
-            border-color: var(--success-bubble); 
-            background: rgba(0, 253, 207, 0.1); 
-        }
-        .level-gauge.balanced .level-bubble { 
-            background-color: var(--success-bubble); 
-            box-shadow: 0 0 15px rgba(0, 253, 207, 0.6); 
-        }
+        .level-gauge.balanced { border-color: var(--success-bubble); background: rgba(0, 253, 207, 0.1); }
+        .level-gauge.balanced .level-bubble { background-color: var(--success-bubble); box-shadow: 0 0 15px rgba(0, 253, 207, 0.6); }
 
-        .ghost-overlay {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 320px; height: 480px; border-radius: 9999px; 
-            border: 3px dashed rgba(255, 255, 255, 0.6);
-            z-index: 10; 
-            box-shadow: 0 0 0 9999px rgba(0,0,0,0.7); 
-            transition: all 0.2s;
-        }
-        
-        .crosshair {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; z-index: 15;
-        }
+        .ghost-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 320px; height: 480px; border-radius: 9999px; border: 3px dashed rgba(255, 255, 255, 0.6); z-index: 10; box-shadow: 0 0 0 9999px rgba(0,0,0,0.7); transition: all 0.2s; }
+        .crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; z-index: 15; }
         .crosshair::before, .crosshair::after { content: ''; position: absolute; background: rgba(255,255,255,0.7); border-radius: 2px;}
         .crosshair::before { top: 19px; left: 0; width: 40px; height: 2px; }
         .crosshair::after { top: 0; left: 19px; width: 2px; height: 40px; }
         
-        .countdown-overlay {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 12rem; color: #fff; font-weight: 700; 
-            z-index: 100; display: none;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
+        .countdown-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12rem; color: #fff; font-weight: 700; z-index: 100; display: none; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
 
-        .result-overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(5px);
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 150; display: none;
-        }
-        
-        .result-card-inner {
-            background: var(--card-bg);
-            padding: 50px;
-            border-radius: 40px;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            border: 1px solid rgba(0,0,0,0.1);
-            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        .result-category {
-            font-size: 4rem; color: var(--ink); font-weight: 300; margin-bottom: 10px;
-            text-transform: capitalize; letter-spacing: -1px;
-            line-height: 1;
-        }
+        .result-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 150; display: none; }
+        .result-card-inner { background: var(--card-bg); padding: 50px; border-radius: 40px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 1px solid rgba(0,0,0,0.1); animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .result-category { font-size: 4rem; color: var(--ink); font-weight: 300; margin-bottom: 10px; text-transform: capitalize; letter-spacing: -1px; line-height: 1; }
         .result-row { display: flex; gap: 40px; margin: 30px 0; justify-content: center; border-top: 1px solid #eee; padding-top: 30px;}
         .result-item { text-align: center; }
         .result-label { font-size: 0.9rem; color: var(--ink-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; font-weight: 600;}
         .result-val { font-size: 2rem; font-weight: 600; color: var(--ink); }
 
-        .loader {
-            border: 4px solid rgba(0,0,0,0.1); border-top: 4px solid var(--accent-yellow);
-            border-radius: 50%; width: 50px; height: 50px;
-            animation: spin 1s linear infinite; display: none; margin: 20px auto;
-        }
+        .loader { border: 4px solid rgba(0,0,0,0.1); border-top: 4px solid var(--accent-yellow); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; display: none; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
     </style>
@@ -377,9 +232,7 @@
 
     <div id="step-instr-width" class="step tutorial-step">
         <h1>Part 1: Head Width</h1>
-        
         <img src="headbreadth_tutorial_01.png" alt="Head Width Instructions" class="instruction-image">
-        
         <p>1. Use the <b>Bubble Level</b> to balance your head.<br>
            2. Place your <b>Index Fingers</b> on both <b>Tragus</b> (ear bumps).<br>
            3. Look straight at the camera (not screen).</p>
@@ -388,9 +241,7 @@
 
     <div id="step-instr-height" class="step tutorial-step">
         <h1>Part 2: Head Height</h1>
-        
         <img src="headheight_tutorial_01.png" alt="Head Height Instructions" class="instruction-image">
-        
         <p>1. Use the <b>Bubble Level</b> to balance your head.<br>
            2. Place one of your <b>Index fingers</b> on either <b>tragus</b> (ear bumps).<br>
            3. Press your <b>Flat Palm</b> firmly on the <b>Top of your Head</b> with the other hand.<br>
@@ -480,9 +331,12 @@
     let isHeadPostureValid = false;
     let countdownTimer = null; 
 
-    // REDUCED FRAME BUFFER TO 5 FOR SPEED
     const ALIGN_FRAMES_NEEDED = 20;
-    const MEASURE_FRAMES = 5; 
+    
+    // --- ACCURACY FIX 1: INCREASE SAMPLE SIZE ---
+    // Increased from 5 to 60 (Approx 2 seconds of data)
+    const MEASURE_FRAMES = 60; 
+    
     let currentGhostW = 300;
     let currentGhostH = 450;
 
@@ -592,6 +446,14 @@
     function lerp(start, end, t) { return start * (1 - t) + end * t; }
     function drawDot(ctx, x, y, color) { ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, 8, 0, 2 * Math.PI); ctx.fill(); }
 
+    // --- ACCURACY FIX 2: MEDIAN FILTER ---
+    function getMedian(values) {
+        if (values.length === 0) return 0;
+        const sorted = [...values].sort((a, b) => a - b);
+        const mid = Math.floor(sorted.length / 2);
+        return sorted[mid];
+    }
+
     function categorizeHead(measuredW, measuredH) {
         let bestMatch = null;
         let minDist = Infinity;
@@ -622,43 +484,27 @@
             const eyeMidX = (leftEye.x + rightEye.x) / 2;
             const eyeMidY = (leftEye.y + rightEye.y) / 2;
 
-            // --- [UPDATED] EAR LANDMARKS ---
-            // Using landmarks 127 and 356 (Tragus/Cheekbone area) 
-            // This is more stable for "Head Pitch" than using the nose
             const leftEar = results.faceLandmarks[127];
             const rightEar = results.faceLandmarks[356];
             const earMidY = (leftEar.y + rightEar.y) / 2;
 
-            // Ghost Sizing
             const top = results.faceLandmarks[10].y;
             const bottom = results.faceLandmarks[152].y;
             const faceH = (bottom - top) * h;
             
-            // WIDE PILL SHAPE
             currentGhostW = lerp(currentGhostW, Math.max(260, faceH * 1.1), 0.1);
             currentGhostH = lerp(currentGhostH, Math.max(300, faceH * 1.5), 0.1);
             ui.ghost.style.width = `${currentGhostW}px`;
             ui.ghost.style.height = `${currentGhostH}px`;
-
-            // Position Warning Pill dynamically
             ui.warning.style.top = `calc(50% + ${currentGhostH / 2 + 30}px)`;
 
-            // --- [UPDATED] LEVEL GAUGE LOGIC ---
-            // 1. YAW: Nose X vs Eye Center X
+            // --- Level Logic ---
             const yawRaw = (nose.x - eyeMidX); 
-
-            // 2. PITCH: Eye Y vs Ear Y (Frankfurt Plane Approximation)
             const pitchRaw = (eyeMidY - earMidY); 
-            
-            // Target: 0.0 (Level) or -0.01 (Webcam slightly above eyes)
             const targetPitch = -0.01; 
             const pitchDelta = pitchRaw - targetPitch; 
-
-            // Visualization Sensitivity
             const sensitivity = 1000; 
             const bubbleX = Math.max(-50, Math.min(50, yawRaw * sensitivity));
-            
-            // --- FIX: REMOVED THE * -1 so bubble moves with head ---
             const bubbleY = Math.max(-50, Math.min(50, pitchDelta * sensitivity));
             
             ui.levelBubble.style.transform = `translate(calc(-50% + ${-bubbleX}px), calc(-50% + ${bubbleY}px))`;
@@ -676,11 +522,7 @@
             if (offsetX > 0.1) warning = "Center Face";
             else if (!isBalanced) {
                 if (Math.abs(yawRaw) > 0.04) warning = "Look Straight";
-                
-                // --- [UPDATED] DIRECTIONAL FEEDBACK ---
-                // pitchDelta < 0 means Eyes above Ears (Looking UP)
                 else if (pitchDelta < -0.03) warning = "Look Down"; 
-                // pitchDelta > 0 means Eyes below Ears (Looking DOWN)
                 else if (pitchDelta > 0.03) warning = "Look Up";
                 else warning = "Balance Bubble";
             } else {
@@ -689,7 +531,6 @@
 
             isHeadPostureValid = isFaceAligned;
             
-            // Draw Iris Dots
             const lIris = results.faceLandmarks[468];
             const rIris = results.faceLandmarks[473];
             drawDot(canvasCtx, lIris.x*w, lIris.y*h, "#10b981");
@@ -717,34 +558,30 @@
                 if (results.leftHandLandmarks && results.rightHandLandmarks && isFaceAligned) {
                     
                     if (mode === 'width') {
-                        // Just dots on index fingers
                         const l = results.leftHandLandmarks[8];
                         const r = results.rightHandLandmarks[8];
                         drawDot(canvasCtx, l.x*w, l.y*h, "#814efa");
                         drawDot(canvasCtx, r.x*w, r.y*h, "#814efa");
                     } else {
-                        // Height Mode: Detect Top Hand vs Side Hand
                         const lY = results.leftHandLandmarks[0].y;
                         const rY = results.rightHandLandmarks[0].y;
                         
                         let topHand, sideHand;
                         if (lY < rY) {
-                            topHand = results.leftHandLandmarks; // Left is Top
-                            sideHand = results.rightHandLandmarks; // Right is Side
+                            topHand = results.leftHandLandmarks; 
+                            sideHand = results.rightHandLandmarks; 
                         } else {
-                            topHand = results.rightHandLandmarks; // Right is Top
-                            sideHand = results.leftHandLandmarks; // Left is Side
+                            topHand = results.rightHandLandmarks; 
+                            sideHand = results.leftHandLandmarks; 
                         }
                         
-                        // --- [UPDATED] VISUALIZE 3 FINGERS ON TOP HAND ---
-                        const t12 = topHand[12]; // Middle
-                        const t16 = topHand[16]; // Ring
-                        const t20 = topHand[20]; // Pinky
+                        const t12 = topHand[12]; 
+                        const t16 = topHand[16]; 
+                        const t20 = topHand[20]; 
                         drawDot(canvasCtx, t12.x*w, t12.y*h, "#814efa");
                         drawDot(canvasCtx, t16.x*w, t16.y*h, "#814efa");
                         drawDot(canvasCtx, t20.x*w, t20.y*h, "#814efa");
                         
-                        // Draw Index Finger (8) on Side Hand
                         const s = sideHand[8];
                         drawDot(canvasCtx, s.x*w, s.y*h, "#814efa");
                     }
@@ -763,53 +600,54 @@
                 if (results.leftHandLandmarks && results.rightHandLandmarks && results.faceLandmarks) {
                     const lIris = results.faceLandmarks[468];
                     const rIris = results.faceLandmarks[473];
+                    
                     const irisDistPx = distEuclidean(
                         {x:lIris.x*w, y:lIris.y*h}, 
                         {x:rIris.x*w, y:rIris.y*h}
                     );
-                    const mmPerPixel = userIPD / irisDistPx;
 
-                    let resultMM = 0;
-
-                    if (mode === 'width') {
-                        const lIndex = results.leftHandLandmarks[8];
-                        const rIndex = results.rightHandLandmarks[8];
-                        const distPx = distEuclidean(
-                            {x:lIndex.x*w, y:lIndex.y*h},
-                            {x:rIndex.x*w, y:rIndex.y*h}
-                        );
-                        resultMM = distPx * mmPerPixel;
+                    // --- ACCURACY FIX 3: DISTANCE CONSTRAINT ---
+                    if (irisDistPx < 60) {
+                        ui.warning.innerText = "Move Closer";
+                        ui.warning.className = "status-pill visible";
                     } else {
-                        // HEIGHT LOGIC 
-                        const lY = results.leftHandLandmarks[0].y;
-                        const rY = results.rightHandLandmarks[0].y;
+                        const mmPerPixel = userIPD / irisDistPx;
+                        let resultMM = 0;
 
-                        let topHand, sidePoint;
-
-                        // Identify Top vs Side Hand based on Wrist Height
-                        if (lY < rY) {
-                            topHand = results.leftHandLandmarks;
-                            sidePoint = results.rightHandLandmarks[8];
+                        if (mode === 'width') {
+                            const lIndex = results.leftHandLandmarks[8];
+                            const rIndex = results.rightHandLandmarks[8];
+                            const distPx = distEuclidean(
+                                {x:lIndex.x*w, y:lIndex.y*h},
+                                {x:rIndex.x*w, y:rIndex.y*h}
+                            );
+                            resultMM = distPx * mmPerPixel;
                         } else {
-                            topHand = results.rightHandLandmarks;
-                            sidePoint = results.leftHandLandmarks[8];
+                            const lY = results.leftHandLandmarks[0].y;
+                            const rY = results.rightHandLandmarks[0].y;
+                            let topHand, sidePoint;
+
+                            if (lY < rY) {
+                                topHand = results.leftHandLandmarks;
+                                sidePoint = results.rightHandLandmarks[8];
+                            } else {
+                                topHand = results.rightHandLandmarks;
+                                sidePoint = results.leftHandLandmarks[8];
+                            }
+
+                            const y12 = topHand[12].y;
+                            const y16 = topHand[16].y;
+                            const y20 = topHand[20].y;
+                            const avgTopY = (y12 + y16 + y20) / 3;
+
+                            const topYPx = avgTopY * h;
+                            const sideYPx = sidePoint.y * h;
+                            resultMM = Math.abs(sideYPx - topYPx) * mmPerPixel;
                         }
 
-                        // --- [UPDATED] AVERAGE OF 3 FINGERS (Middle, Ring, Pinky) ---
-                        // To account for overlapping/blocked fingers
-                        const y12 = topHand[12].y;
-                        const y16 = topHand[16].y;
-                        const y20 = topHand[20].y;
-                        const avgTopY = (y12 + y16 + y20) / 3;
-
-                        const topYPx = avgTopY * h;
-                        const sideYPx = sidePoint.y * h;
-                        
-                        resultMM = Math.abs(sideYPx - topYPx) * mmPerPixel;
+                        measurementBuffer.push(resultMM);
+                        if (measurementBuffer.length >= MEASURE_FRAMES) finishMeasurementSection();
                     }
-
-                    measurementBuffer.push(resultMM);
-                    if (measurementBuffer.length >= MEASURE_FRAMES) finishMeasurementSection();
                 }
             }
         }
@@ -818,10 +656,7 @@
 
     function startCountdown() {
         ui.countdown.style.display = 'block';
-        
-        // FIX: Explicitly reset font size so subsequent measurements are not small
         ui.countdown.style.fontSize = ''; 
-        
         let count = 3;
         ui.countdown.innerText = count;
         ui.countdown.style.color = 'white'; 
@@ -844,12 +679,9 @@
             } else {
                 clearInterval(countdownTimer);
                 ui.countdown.style.display = 'none';
-                
-                // --- IMMEDIATE FEEDBACK ---
                 ui.countdown.style.display = 'block';
                 ui.countdown.innerText = "Analyzing...";
-                ui.countdown.style.fontSize = "2rem"; // Smaller text
-                
+                ui.countdown.style.fontSize = "2rem"; 
                 currentPhase = 3; 
             }
         }, 1000);
@@ -857,8 +689,10 @@
 
     function finishMeasurementSection() {
         isScanning = false;
-        const avg = measurementBuffer.reduce((a,b)=>a+b) / measurementBuffer.length;
-        const rounded = Math.round(avg);
+        
+        // --- ACCURACY FIX: USE MEDIAN INSTEAD OF AVERAGE ---
+        const result = getMedian(measurementBuffer);
+        const rounded = Math.round(result);
 
         if (mode === 'width') {
             widthVal = rounded;
