@@ -19,7 +19,7 @@
         :root {
             /* Colors */
             --btn-bg: #0D3A32;
-            --btn-hover: #134a40; /* Updated Hover Color */
+            --btn-hover: #134a40; 
             --btn-text: #ffffff;
             --bg-body: #E3E6E4; 
             --card-bg: #FFFDF5; 
@@ -158,45 +158,36 @@
         }
         .ipd-input-group input:focus { outline: none; background: #fafafa; border-color: var(--btn-bg); }
 
-        /* --- UPDATED TUTORIAL STYLES --- */
+        /* --- TUTORIAL STYLES --- */
         
         .tutorial-step {
             position: relative;
             justify-content: center; 
         }
 
-        /* Ensure title is on top of image */
         .tutorial-step h1 {
             position: relative;
             z-index: 2;
             margin-bottom: 0;
-            /* Top Margin: 20px */
             margin-top: 20px; 
         }
 
-        /* Cleaned up Instruction Text */
         .tutorial-step p {
             position: relative;
             z-index: 2;
-            
             background: transparent;
             box-shadow: none;
             border: none;
             padding: 0;
-
             text-shadow: none;
             font-weight: 200; 
-
             margin-bottom: 30px;
         }
 
-        /* Specific style for buttons in tutorial steps to equalize spacing */
         .tutorial-step .btn {
-            /* Bottom Margin: 20px (Matches H1 Top Margin) */
             margin-bottom: 20px;
         }
 
-        /* Graphics Style for Tutorial Images */
         .instruction-image {
             width: 110%; 
             max-width: 650px; 
@@ -212,7 +203,6 @@
             pointer-events: none; 
         }
 
-        /* --- CALIBRATION GRAPHIC --- */
         .calib-graphic {
             width: 120px;
             height: auto;
@@ -220,8 +210,6 @@
             margin: 0 auto 20px auto; 
         }
         
-        /* --- END UPDATED STYLES --- */
-
         /* Camera View */
         .camera-container {
             position: relative; width: 100%; height: 100%; 
@@ -663,10 +651,10 @@
 
             if (isBalanced) {
                 ui.levelGauge.classList.add('balanced');
-                ui.levelBubble.style.backgroundColor = 'var(--success)';
+                ui.levelBubble.style.backgroundColor = '#00FDCF'; // Fixed Solid Cyan
             } else {
                 ui.levelGauge.classList.remove('balanced');
-                ui.levelBubble.style.backgroundColor = 'var(--warning)';
+                ui.levelBubble.style.backgroundColor = 'var(--warning-bubble)';
             }
 
             const offsetX = Math.abs(nose.x - 0.5);
@@ -713,8 +701,8 @@
                         // Just dots on index fingers
                         const l = results.leftHandLandmarks[8];
                         const r = results.rightHandLandmarks[8];
-                        drawDot(canvasCtx, l.x*w, l.y*h, "#ef4444");
-                        drawDot(canvasCtx, r.x*w, r.y*h, "#ef4444");
+                        drawDot(canvasCtx, l.x*w, l.y*h, "#814efa");
+                        drawDot(canvasCtx, r.x*w, r.y*h, "#814efa");
                     } else {
                         // Height Mode: Detect Top Hand vs Side Hand
                         const lY = results.leftHandLandmarks[0].y;
@@ -731,11 +719,11 @@
                         
                         // Draw Middle Finger (12) on Top Hand
                         const t = topHand[12]; 
-                        drawDot(canvasCtx, t.x*w, t.y*h, "#ef4444");
+                        drawDot(canvasCtx, t.x*w, t.y*h, "#814efa");
                         
                         // Draw Index Finger (8) on Side Hand
                         const s = sideHand[8];
-                        drawDot(canvasCtx, s.x*w, s.y*h, "#ef4444");
+                        drawDot(canvasCtx, s.x*w, s.y*h, "#814efa");
                     }
                     
                     alignmentStableFrames++;
