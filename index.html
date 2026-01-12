@@ -28,12 +28,12 @@
             
             /* Status Colors */
             --danger: #FF8A80;
-            --success-bubble: #00FDCF; /* New Success Color */
-            --warning-bubble: #EEEEEE; /* New Warning Color */
+            --success-bubble: #00FDCF; 
+            --warning-bubble: #EEEEEE; 
             
             --line-weight: 1.5px;
             --radius-btn: 99px;
-            --radius-card: 100px; /* Global Radius */
+            --radius-card: 100px; 
         }
 
         body {
@@ -55,8 +55,9 @@
             aspect-ratio: 16/9;
             max-height: 85vh;
             background: var(--card-bg);
-            border-radius: var(--radius-card); /* 100px */
+            border-radius: var(--radius-card); 
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+            /* Equal padding top and bottom ensures vertical symmetry */
             padding: 50px; 
             box-sizing: border-box;
             display: flex;
@@ -72,7 +73,7 @@
         .container.camera-mode {
             padding: 0;
             background: #000;
-            border-radius: var(--radius-card); /* Ensure 100px radius in camera mode */
+            border-radius: var(--radius-card); 
         }
 
         /* Typography */
@@ -81,6 +82,8 @@
             font-weight: 500; 
             color: black; 
             margin-bottom: 16px; 
+            /* Ensure no default top margin disrupts symmetry */
+            margin-top: 0; 
             letter-spacing: -0.02em;
             text-align: center; 
         }
@@ -109,7 +112,8 @@
             font-weight: 500;
             letter-spacing: 0.5px;
             transition: all 0.2s ease;
-            margin: 10px;
+            /* Uniform margin prevents layout skew */
+            margin: 10px; 
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -156,52 +160,60 @@
 
         /* --- UPDATED TUTORIAL STYLES --- */
         
-        /* Styles specifically for the tutorial steps to handle overlap */
         .tutorial-step {
             position: relative;
+            /* Ensuring vertical centering handles the margins */
+            justify-content: center; 
         }
 
         /* Ensure title is on top of image */
         .tutorial-step h1 {
             position: relative;
             z-index: 2;
-            margin-bottom: 0; /* Remove bottom margin so it sits closer to image */
-            text-shadow: 0 2px 10px rgba(255,253,245, 0.8); /* Make text pop against lines */
+            margin-bottom: 0;
+            /* White text shadow to separate text from image lines if needed */
+            text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff; 
         }
 
-        /* Ensure Instructions are on top of image and readable */
+        /* Cleaned up Instruction Text */
         .tutorial-step p {
             position: relative;
             z-index: 2;
-            /* Add a semi-transparent background so text is readable over the image lines */
-            background: rgba(255, 253, 245, 0.85); 
-            padding: 20px 30px;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+            
+            /* REMOVED: Background, Box-shadow, Border, Padding */
+            background: transparent;
+            box-shadow: none;
+            border: none;
+            padding: 0;
+
+            /* Added: White text outline/shadow for readability over image lines */
+            text-shadow: 
+                2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 
+                1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+            
+            font-weight: 500; /* Slightly bolder to stand out */
+            margin-bottom: 30px;
         }
 
         /* Updated Graphics Style for Images */
         .instruction-image {
-            width: 110%; /* Make wider than container for grand feel */
-            max-width: 650px; /* Significantly larger max width */
+            width: 110%; 
+            max-width: 650px; 
             height: auto;
             display: block;
             
-            /* Negative margins to create overlap. 
-               -50px top pulls it under the H1. 
-               -60px bottom pulls the P up over it. */
+            /* Negative margins to create overlap */
             margin: -50px auto -60px auto; 
             
-            /* Removed border, radius, and shadow */
+            /* Clean style */
             box-shadow: none;
             border-radius: 0;
             border: none;
             
             position: relative;
-            z-index: 0; /* Send to back */
-            opacity: 0.9; /* Slight fade so black text on black lines isn't too harsh */
-            pointer-events: none; /* Ensure clicks pass through */
+            z-index: 0; 
+            opacity: 0.9; 
+            pointer-events: none; 
         }
         
         /* --- END UPDATED TUTORIAL STYLES --- */
@@ -226,29 +238,26 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         
-        /* Updated: Smaller Instruction Text */
         .instruction-banner h2 { 
-            margin: 0; font-size: 2rem; /* Reduced from 2.5rem */
+            margin: 0; font-size: 2rem; 
             font-weight: 600; 
             color: #fff; text-align: left;
             line-height: 1.1;
         }
         .instruction-banner p { 
-            margin: 8px 0 0 0; font-size: 1rem; /* Reduced from 1.2rem */
+            margin: 8px 0 0 0; font-size: 1rem; 
             color: rgba(255,255,255,0.9); text-align: left; 
             font-weight: 300; 
         }
 
-        /* Warning Pill (The text pill, not the level bubble) */
+        /* Warning Pill */
         .status-pill {
             position: absolute; left: 50%; transform: translate(-50%, 0); 
             background: var(--card-bg); 
             color: var(--ink); 
-            /* Removed Border */
             border: none;
             padding: 12px 30px;
             border-radius: 50px; font-size: 1rem; opacity: 0; transition: opacity 0.3s; 
-            /* Updated Font Weight */
             font-weight: 300; 
             box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
             z-index: 60;
@@ -267,10 +276,9 @@
         }
         .level-inner-ring { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.6); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         
-        /* Updated Level Bubble Colors */
         .level-bubble { 
             width: 20px; height: 20px; 
-            background-color: var(--warning-bubble); /* #EEEEEE */
+            background-color: var(--warning-bubble); 
             border-radius: 50%; 
             position: absolute; top: 50%; left: 50%; 
             transform: translate(-50%, -50%); 
@@ -284,7 +292,7 @@
             background: rgba(0, 253, 207, 0.1); 
         }
         .level-gauge.balanced .level-bubble { 
-            background-color: var(--success-bubble); /* #00FDCF */
+            background-color: var(--success-bubble); 
             box-shadow: 0 0 15px rgba(0, 253, 207, 0.6); 
         }
 
