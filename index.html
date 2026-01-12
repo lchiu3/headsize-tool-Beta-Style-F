@@ -19,7 +19,7 @@
         :root {
             /* Colors */
             --btn-bg: #0D3A32;
-            --btn-hover: #227f6e;
+            --btn-hover: #134a40; /* Updated Hover Color */
             --btn-text: #ffffff;
             --bg-body: #E3E6E4; 
             --card-bg: #FFFDF5; 
@@ -58,7 +58,7 @@
             border-radius: var(--radius-card); 
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
             
-            /* INCREASED Padding: 70px Top/Bottom to add space above title and below button */
+            /* Padding: 70px Top/Bottom */
             padding: 70px 50px; 
             
             box-sizing: border-box;
@@ -170,7 +170,7 @@
             position: relative;
             z-index: 2;
             margin-bottom: 0;
-            /* Added Top Margin for specific tutorial spacing */
+            /* Top Margin: 20px */
             margin-top: 20px; 
         }
 
@@ -184,11 +184,16 @@
             border: none;
             padding: 0;
 
-            /* Removed Text Shadow & Set Font Weight to 200 */
             text-shadow: none;
             font-weight: 200; 
 
             margin-bottom: 30px;
+        }
+
+        /* Specific style for buttons in tutorial steps to equalize spacing */
+        .tutorial-step .btn {
+            /* Bottom Margin: 20px (Matches H1 Top Margin) */
+            margin-bottom: 20px;
         }
 
         /* Graphics Style for Tutorial Images */
@@ -212,7 +217,7 @@
             width: 120px;
             height: auto;
             display: block;
-            margin: 0 auto 20px auto; /* Center align with bottom spacing */
+            margin: 0 auto 20px auto; 
         }
         
         /* --- END UPDATED STYLES --- */
@@ -362,7 +367,7 @@
     
     <div id="step-welcome" class="step active">
         <h1>Head Sizing Tool</h1>
-        <p>This application measures your <b>Head Breadth</b> & <b>Height</b> using your webcam to categorize your perfect fit.</p>
+        <p>This application measures your <b>Head Width</b> & <b>Height</b> using your webcam to categorize your perfect fit.</p>
         <button class="btn" onclick="nextStep('step-calib')">Let's get started <span>&rarr;</span></button>
     </div>
 
@@ -382,15 +387,15 @@
         </div>
     </div>
 
-    <div id="step-instr-breadth" class="step tutorial-step">
-        <h1>Part 1: Head Breadth</h1>
+    <div id="step-instr-width" class="step tutorial-step">
+        <h1>Part 1: Head Width</h1>
         
-        <img src="headbreadth_tutorial_01.png" alt="Head Breadth Instructions" class="instruction-image">
+        <img src="headbreadth_tutorial_01.png" alt="Head Width Instructions" class="instruction-image">
         
         <p>1. Use the <b>Bubble Level</b> to balance your head.<br>
            2. Place your <b>Index Fingers</b> on both <b>Tragus</b> (ear bumps).<br>
            3. Look straight at the camera (not screen).</p>
-        <button class="btn" onclick="startMeasurement('breadth')">Start Breadth Measure</button>
+        <button class="btn" onclick="startMeasurement('width')">Start Width Measure</button>
     </div>
 
     <div id="step-instr-height" class="step tutorial-step">
@@ -434,7 +439,7 @@
             <div id="interstitial-overlay" class="result-overlay">
                 <div class="result-card-inner">
                     <div class="result-label">Step 1 Complete</div>
-                    <div class="result-category" style="font-size: 2.5rem;">Breadth Recorded</div>
+                    <div class="result-category" style="font-size: 2.5rem;">Width Recorded</div>
                     <div class="result-val" id="temp-result" style="color: var(--ink-light); margin-bottom: 20px;">-- mm</div>
                     <button class="btn" onclick="nextStep('step-instr-height')">Continue to Height</button>
                 </div>
@@ -447,8 +452,8 @@
                     
                     <div class="result-row">
                         <div class="result-item">
-                            <div class="result-label">Breadth</div>
-                            <div class="result-val" id="final-breadth">--</div>
+                            <div class="result-label">Width</div>
+                            <div class="result-val" id="final-width">--</div>
                         </div>
                         <div class="result-item">
                             <div class="result-label">Height</div>
@@ -476,8 +481,8 @@
     // --- State ---
     let userIPD = 63; 
     let isScanning = false;
-    let mode = 'breadth'; 
-    let breadthVal = 0;
+    let mode = 'width'; // Changed from 'breadth'
+    let widthVal = 0;   // Changed from 'breadthVal'
     let heightVal = 0;
 
     let currentPhase = 0; 
@@ -498,7 +503,7 @@
     const pages = {
         welcome: document.getElementById('step-welcome'),
         calib: document.getElementById('step-calib'),
-        instrBreadth: document.getElementById('step-instr-breadth'),
+        instrWidth: document.getElementById('step-instr-width'),
         instrHeight: document.getElementById('step-instr-height'),
         camera: document.getElementById('step-camera')
     };
@@ -517,7 +522,7 @@
         interstitial: document.getElementById('interstitial-overlay'),
         final: document.getElementById('final-overlay'),
         tempRes: document.getElementById('temp-result'),
-        finalBreadth: document.getElementById('final-breadth'),
+        finalWidth: document.getElementById('final-width'),
         finalHeight: document.getElementById('final-height'),
         finalCategory: document.getElementById('final-category')
     };
@@ -536,14 +541,14 @@
     function idMap(id) {
         if(id.includes('welcome')) return 'welcome';
         if(id.includes('calib')) return 'calib';
-        if(id.includes('breadth')) return 'instrBreadth';
+        if(id.includes('width')) return 'instrWidth'; // Updated
         if(id.includes('height')) return 'instrHeight';
         if(id.includes('camera')) return 'camera';
     }
 
     function setIPD(val, type) {
         userIPD = parseFloat(val);
-        nextStep('step-instr-breadth');
+        nextStep('step-instr-width'); // Updated
     }
 
     function startMeasurement(selectedMode) {
@@ -577,7 +582,7 @@
             ui.title.innerText = "Align Nose";
             ui.desc.innerText = "Center your nose & Bubble Level";
         } else if (phase === 1) {
-            if (mode === 'breadth') {
+            if (mode === 'width') {
                 ui.title.innerText = "Hands Position";
                 ui.desc.innerText = "Point Index Fingers to both Tragus";
             } else {
@@ -599,11 +604,11 @@
     function lerp(start, end, t) { return start * (1 - t) + end * t; }
     function drawDot(ctx, x, y, color) { ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, 8, 0, 2 * Math.PI); ctx.fill(); }
 
-    function categorizeHead(measuredB, measuredH) {
+    function categorizeHead(measuredW, measuredH) {
         let bestMatch = null;
         let minDist = Infinity;
         HEAD_PROFILES.forEach(profile => {
-            const d = Math.sqrt(Math.pow(measuredB - profile.w, 2) + Math.pow(measuredH - profile.h, 2));
+            const d = Math.sqrt(Math.pow(measuredW - profile.w, 2) + Math.pow(measuredH - profile.h, 2));
             if (d < minDist) { minDist = d; bestMatch = profile.name; }
         });
         return bestMatch;
@@ -704,7 +709,7 @@
             else if (currentPhase === 1) {
                 if (results.leftHandLandmarks && results.rightHandLandmarks && isFaceAligned) {
                     
-                    if (mode === 'breadth') {
+                    if (mode === 'width') {
                         // Just dots on index fingers
                         const l = results.leftHandLandmarks[8];
                         const r = results.rightHandLandmarks[8];
@@ -755,7 +760,7 @@
 
                     let resultMM = 0;
 
-                    if (mode === 'breadth') {
+                    if (mode === 'width') {
                         const lIndex = results.leftHandLandmarks[8];
                         const rIndex = results.rightHandLandmarks[8];
                         const distPx = distEuclidean(
@@ -840,9 +845,9 @@
         const avg = measurementBuffer.reduce((a,b)=>a+b) / measurementBuffer.length;
         const rounded = Math.round(avg);
 
-        if (mode === 'breadth') {
-            breadthVal = rounded;
-            ui.tempRes.innerText = breadthVal + " mm";
+        if (mode === 'width') {
+            widthVal = rounded;
+            ui.tempRes.innerText = widthVal + " mm";
             ui.interstitial.style.display = 'flex';
         } else {
             heightVal = rounded;
@@ -851,9 +856,9 @@
     }
 
     function showFinalResults() {
-        const category = categorizeHead(breadthVal, heightVal);
+        const category = categorizeHead(widthVal, heightVal);
         ui.finalCategory.innerText = category + " HEAD";
-        ui.finalBreadth.innerText = breadthVal + " mm";
+        ui.finalWidth.innerText = widthVal + " mm";
         ui.finalHeight.innerText = heightVal + " mm";
         ui.final.style.display = 'flex';
     }
